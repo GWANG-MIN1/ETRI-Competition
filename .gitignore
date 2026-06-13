@@ -1,0 +1,32 @@
+# --- competition data (never publish; redistribution-restricted) ---
+data/
+**/ch2025_data_items/
+**/ch2026_metrics_train.csv
+**/ch2026_submission_sample.csv
+*.parquet
+*.zip
+
+# --- secrets / credentials ---
+*.pem
+*.key
+*_accessKeys.csv
+*credentials*.csv
+.env
+*.env
+
+# --- heavy / generated outputs ---
+outputs/
+analysis_outputs/
+catboost_info/
+*.npy
+*.log
+
+# --- team public-score ledger (team data, not redistributed here) ---
+hsjepa_public_score_ledger.csv
+
+# --- python / env ---
+__pycache__/
+*.pyc
+.venv/
+.python-packages/
+.ipynb_checkpoints/
