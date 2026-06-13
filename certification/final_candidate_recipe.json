@@ -1,0 +1,30 @@
+{
+  "_description": "FINAL single-shot recipe (H8/H9 certified). Base = FrontierSilence (best observed 0.5677269444). Move = per-subject logit shifts along the LB-validated probe directions. Sign-safe across all 18 sensitivity settings (LP worst -0.00092 ~ -0.00198); central posterior mean ~ -0.0030 -> expected LB ~ 0.5647.",
+  "base_file": "submission_hsjepa_frontier_silence_positive_path_overshoot_sensor_1e013277_uploadsafe.csv",
+  "anchor_lb": 0.5677269444,
+  "components": [
+    {
+      "target": "Q2",
+      "type": "probe_direction",
+      "probe_pair": ["submission_lb_target_micro_probe_v1_Q1_shift_up100.csv", "submission_Q1up100_plus_Q2recency_tau10_lam075.csv"],
+      "kappa": 0.75,
+      "shift_cap_logit": 0.8
+    },
+    {
+      "target": "Q3",
+      "type": "probe_direction",
+      "probe_pair": ["submission_Q1up100_plus_Q2recency_tau10_lam075.csv", "submission_FINAL_Q2recency_plus_Q3recency.csv"],
+      "kappa": 0.25,
+      "shift_cap_logit": 0.8
+    }
+  ],
+  "certification": {
+    "lp_worst_central": -0.00198,
+    "lp_best_central": -0.0034,
+    "lp_worst_most_adversarial": -0.00098,
+    "posterior_mean_central": -0.0030,
+    "p_improve": 1.0,
+    "assignment_noise": 0.0,
+    "settings_grid": "comp{10,20,30}% x box{0.25,0.35,0.45} x Z{2,3} = 18/18 sign-safe"
+  }
+}
