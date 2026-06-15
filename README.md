@@ -7,14 +7,18 @@ ETRI 휴먼이해 AI 논문경진대회 (DACON 236690) 작업 중, **공개 리�
 
 | | public LB |
 |---|---|
-| 직전 best (FrontierSilence) | 0.5677269444 |
+| 직전 best (FrontierSilence, FS) | 0.5677269444 |
 | certified 후보 (`004a0549`) | 0.5647490904 |
 | 검증된 도박 — overshoot anchor (`0fb93301`) | 0.5619100863 |
 | **overshoot ×0.8 — 검증 캠페인 (`330ef1a1`)** | **0.5615333471** ✅ 현 신기록 |
+| MIS-LSTM deep+FS 블렌드 (보수, `goal_054/`) | 0.5663057588 |
 
 - **예측 정확도 99%+ 가 두 번 재현**: ① certified 후보 — 예측 −0.0030 vs 실현 −0.0029779.
   ② overshoot ×0.8 — 예측 −0.00037 vs 실현 −0.0003767, 예상 0.56154 → 실현 0.5615333.
 - 두 번 모두 "제출 전에 게인을 인증/예측"하고 실제 LB가 그 구간 정중앙에 착지.
+- **MIS-LSTM deep+FS 블렌드(0.5663)**: 딥-시퀀스 per-row 신호는 plain **FS(0.5677)는 −0.0014 이기지만**,
+  overshoot의 레벨 보정(−0.0062)보다 약하고 대체로 겹쳐 **현 best(0.5615)엔 못 미침**. LB로 "딥 per-row는
+  작은 레버"임이 확정. 상세: `goal_054/` (0.54 도전 캠페인).
 
 ## 핵심 아이디어
 
@@ -72,6 +76,11 @@ ETRI 휴먼이해 AI 논문경진대회 (DACON 236690) 작업 중, **공개 리�
   - `trackC`,`trackE`,`trackN`,`trackO`,`trackP`,`trackQ*`,`trackR`,`trackS2` — public-subset 식별 + public↔private 전이 + S-probe OED
   - `save_overshoot_x08.py`,`build_certified_dry.py` — 신기록 빌더 + dry-validation
   - `CAMPAIGN_0614c_VERIFICATION.md`,`NOTION_writeup.md` — 캠페인 전체 로그 + 포트폴리오 요약
+- `goal_054/` — **0.54 도전 캠페인** (상위 5등 = 0.54). 정보이론 floor·객관-S 재구성(subsumed)·
+  public-overfit floor·cross-target 등으로 "0.54는 새 모델 클래스 필요"를 규명한 뒤, **MIS-LSTM
+  딥-시퀀스 모델**(arXiv:2509.11232 패러다임, 13채널, subject embedding)을 구현·CPU검증(Q2 honest
+  −0.035 직교신호). **핵심 발견: 450행 데이터한계 → 모델 스케일업=과적합(GPU 무익), 작은 모델이 최적.**
+  Colab 노트북(`MIS_LSTM_colab.ipynb`)·turnkey 빌더(`mislstm_full.py`)·전체 로그(`handoff3.md`) 포함.
 - `submissions/` — 최종 certified 제출 파일(파생 예측만, 원본데이터 아님)
 - `exploratory_pre_jackpot/` — jackpot 합류 이전(0.5932 라인) 탐색 도구. **superseded**, 기록 목적.
 
